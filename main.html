@@ -1,23 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="/favicon.svg">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/favicon.svg" />
     <title>Doubloon Project Ranker</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <h1>Doubloon Project Ranker</h1>
+    <h3>(n) to create a new project, (r) to rank projects, (c) to clear projects</h3>
+    <br /><br /><br />
     <div id="input-container"></div>
-    <button id="add-button">Add</button>
-    <br>
+    <br />
+    <button id="add-button">(n) New</button>
+
+    <br /><br />
+    <div id="stats">
+      <h2 id="stats-heading" style="visibility: hidden">Stats</h2>
+      <p id="average-doubloon"></p>
+      <p id="median-doubloon"></p>
+      <p id="stdev-doubloon"></p>
+    </div>
+
     <div class="sticky-div">
-        <button id="rank-button">Rank!</button>
-        <button id="clear-button">Clear</button>
+      <button id="rank-button">(r) Rank!</button>
+      <button id="clear-button">(c) Clear</button>
     </div>
 
     <script src="index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-</body>
+  </body>
 </html>
