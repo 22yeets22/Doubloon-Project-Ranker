@@ -1,6 +1,6 @@
 # Doubloon-Project-Ranker
 ### A simple tool to manage and rank projects based on their efficiency, measured in *doubloons per hour*. This tool helps decide which project to push updates to!
-![Thumbnail]("https://github.com/22yeets22/Doubloon-Project-Ranker/blob/main/Doubloon-Ranker.png?raw=true" "Thumbnail")
+![Thumbnail]("https://raw.githubusercontent.com/22yeets22/Doubloon-Project-Ranker/refs/heads/main/Doubloon-Ranker.png" "Thumbnail")
 
 ## Features
 - **Add Projects**: Create new projects with title, doubloons earned, and hours spent.
@@ -10,4 +10,4 @@
 - **Persistent Storage**: Save and load projects using local storage.
 
 ## Demo
-doubloon-project-ranker.vercel.app
+[Doubloon Project Ranker](https://doubloon-project-ranker.vercel.app)
