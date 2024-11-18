@@ -1,5 +1,6 @@
 # Doubloon-Project-Ranker
-A simple tool to manage and rank projects based on their efficiency, measured in *doubloons per hour*. This tool helps decide which ship to push updates to!
+### A simple tool to manage and rank projects based on their efficiency, measured in *doubloons per hour*. This tool helps decide which project to push updates to!
+![Thumbnail]("https://github.com/22yeets22/Doubloon-Project-Ranker/blob/main/Doubloon-Ranker.png?raw=true" "Thumbnail")
 
 ## Features
 - **Add Projects**: Create new projects with title, doubloons earned, and hours spent.
