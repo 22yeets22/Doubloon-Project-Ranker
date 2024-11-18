@@ -130,7 +130,7 @@ function addEventListeners() {
     rank();
     stats();
     saveToLocalStorage();
-  }
+  };
 
   document.getElementById("add-button").addEventListener("click", addProjectAndSave);
   document.getElementById("rank-button").addEventListener("click", rankProjectsAndSave);
