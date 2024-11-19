@@ -16,14 +16,77 @@
     <button id="add-button">(n) New</button>
 
     <br /><br />
-    <div id="stats">
-      <h2 id="stats-heading" style="visibility: hidden">Stats</h2>
-      <p id="average-doubloon"></p>
-      <p id="median-doubloon"></p>
-      <p id="stdev-doubloon"></p>
+    <div id="stats" class="split-div" style="visibility: hidden">
+      <div class="hover-div">
+        <h2 id="stats-heading">Stats</h2>
+        <p id="average-doubloon"></p>
+        <p id="median-doubloon"></p>
+        <p id="stdev-doubloon"></p>
+      </div>
+      <div class="hover-div">
+        <p>
+          How long for a
+          <span class="dropdown-container">
+            <select id="doubloon-dropdown" class="dropdown">
+              <option value="---" selected="selected">---</option>
+              <option value="stickers">Pile of Stickers</option>
+              <option value="digitalOceanCredits">DigitalOcean credits</option>
+              <option value="openAIcredits">OpenAI credits</option>
+              <option value="hetznerCredits">Hetzner credits</option>
+              <option value="anthropicCredits">Anthropic Credits</option>
+              <option value="hackClubMicroSD">Hack Club MicroSD card</option>
+              <option value="logicAnalyzer">Logic Analyzer</option>
+              <option value="biteSizeLinux">Bite Size Linux</option>
+              <option value="biteSizeBash">Bite Size Bash</option>
+              <option value="howDNSWorks">How DNS Works</option>
+              <option value="domain1Year">Domain (1 year)</option>
+              <option value="signedPhotoMalted">Signed photo of Malted</option>
+              <option value="raspberryPi">Raspberry Pi</option>
+              <option value="raspberryPi2">Raspberry Pi</option>
+              <option value="digitalCalipers">Digital Calipers</option>
+              <option value="pcbManufacturing">PCB manufacturing credit!</option>
+              <option value="adafruitItsyBitsy">Adafruit ItsyBitsy M4 Express</option>
+              <option value="hotGlueGun">Hot Glue Gun</option>
+              <option value="digiKeyLCSC">DigiKey/LCSC Credit</option>
+              <option value="githubInvertocatPin">GitHub Invertocat Pin!</option>
+              <option value="signedPhotoGraham">Signed photo of Graham Darcey</option>
+              <option value="pinecil">Pinecil</option>
+              <option value="githubNotebook">GitHub Notebook</option>
+              <option value="blahaj">Blahåj</option>
+              <option value="baofengUV5R">Baofeng UV-5R</option>
+              <option value="lockpickSet">Lockpick set</option>
+              <option value="githubKeycaps">GitHub Keycaps</option>
+              <option value="hackClubSocks">Hack Club socks!</option>
+              <option value="githubUniverseBadge">GitHub Universe Badge</option>
+              <option value="fudge">1 lb fudge from place next to HQ</option>
+              <option value="yubikey">YubiKey</option>
+              <option value="dremel4300Kit">Dremel 4300 kit</option>
+              <option value="raspberryPi5">Raspberry Pi 5</option>
+              <option value="system76LaunchKeyboard">System76 Launch Keyboard</option>
+              <option value="githubMiirBackpack">GitHub MiiR® Backpack</option>
+              <option value="flipper">Flipper</option>
+              <option value="bambuLabA1Mini">Bambu Lab A1 Mini</option>
+              <option value="thermalImagingCamera">Thermal imaging camera</option>
+              <option value="hotAirReworkStation">Hot-air rework station</option>
+              <option value="oscilloscope100MHz">100MHZ Oscilloscope</option>
+              <option value="ipad">iPad</option>
+              <option value="frameworkLaptop13">Framework Laptop 13"</option>
+              <option value="macbookAirM213">MacBook Air M2 13"</option>
+              <option value="frameworkLaptop16">Framework Laptop 16"</option>
+              <option value="ticketToDEFCON">ticket to DEF CON</option>
+            </select>
+          </span>
+          OR
+          <input type="number" id="doubloon-input" class="number-input" placeholder="Doubloons" />
+          doubloons?
+        </p>
+        <button id="submit-button">Submit</button>
+        <br />
+        <p id="time-calculation-result"></p>
+      </div>
     </div>
 
-    <div class="sticky-div">
+    <div class="hover-div sticky-div">
       <button id="rank-button">(r) Rank!</button>
       <button id="clear-button">(c) Clear</button>
     </div>
