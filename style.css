@@ -2,12 +2,13 @@
 
 body {
   font-family: "Inter", Arial, sans-serif;
-  background-color: #f4f4f4;
+  background-color: #f0f0f0;
   margin: 0;
   padding: 20px;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  padding-bottom: 100px;
 }
 
 h1,
@@ -23,7 +24,7 @@ h3 {
 }
 
 .input-section {
-  margin-bottom: 10px;
+  margin-bottom: 3px;
   display: flex;
   gap: 10px;
   align-items: center;
@@ -43,7 +44,8 @@ h3 {
 
 #add-button,
 #rank-button,
-#clear-button {
+#clear-button,
+#submit-button {
   display: block;
   width: 100%;
   padding: 10px;
@@ -56,11 +58,12 @@ h3 {
   transition: ease 0.3s;
 }
 #add-button,
-#rank-button {
+#rank-button,
+#submit-button {
   background-color: #007bff;
 }
 #add-button:hover,
-#rank-button:hover {
+#rank-button:hover #submit-button:hover {
   background-color: #0056b3;
 }
 #clear-button {
@@ -86,18 +89,6 @@ h3 {
   border-radius: 5px;
 }
 
-.fade-in {
-  animation: fadeIn 0.5s ease-in-out;
-}
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
 .remove-button {
   background-color: #e34d42;
   color: white;
@@ -119,8 +110,87 @@ h3 {
   display: flex; /* Align buttons side-by-side */
   gap: 20px; /* Add spacing between buttons */
   justify-content: flex-end; /* Align buttons to the right */
-  background-color: rgba(255, 255, 255, 0.8); /* Optional: add a subtle background */
-  padding: 10px; /* Optional: add padding */
-  border-radius: 10px; /* Optional: rounded corners */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow */
+}
+.hover-div {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Fade-in animation */
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px); /* Slight upward motion */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fade-out animation */
+.fade-out {
+  animation: fadeOut 0.5s ease-in-out;
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(10px); /* Slight downward motion */
+  }
+}
+
+/* Smooth layout transitions */
+#input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: all 0.3s ease-in-out;
+}
+.input-section {
+  transition: all 0.3s ease-in-out;
+}
+
+.dropdown-container {
+  display: inline-block;
+  position: relative;
+}
+
+.dropdown {
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: auto;
+  display: inline-block;
+}
+
+.number-input {
+  margin-left: 10px;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100px;
+  display: inline-block;
+}
+
+.split-div {
+  display: flex;
+  justify-content: space-between; /* Space between each child div */
+  align-items: center; /* Align items vertically in the center */
+  gap: 10px; /* Optional: Add space between items */
+}
+
+.split-div > div {
+  flex: 1; /* Each child takes up equal space */
+  text-align: center; /* Optional: Centers content in each child div */
 }
