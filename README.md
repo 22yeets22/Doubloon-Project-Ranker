@@ -8,6 +8,13 @@
 - **Clear All**: Delete all projects and reset the list.
 - **Statistics**: View average, median, and standard deviation of doubloons earned across projects.
 - **Persistent Storage**: Save and load projects using local storage.
+- **Reward Time Calulation**: Find out how long it takes to get something!
 
 ## Demo
 [Doubloon Project Ranker](https://doubloon-project-ranker.vercel.app)
+
+## Todo
+1. Make CSS buttons classes lol
+2. Make the script prettier
+3. Use doubloon img instead of text
+4. Toggle inputs
