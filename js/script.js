@@ -1,10 +1,8 @@
-let mean, median, stdev;
+const doubloonImg = '<img src="assets/doubloon.svg" alt="Doubloon Icon" class="doubloon"/>';
+let total, totalHours, rate, mean, median, stdev;
 const doubloonValues = {
   stickers: 17,
-  digitalOceanCredits: 28,
-  openAIcredits: 28,
-  hetznerCredits: 28,
-  anthropicCredits: 28,
+  AIcredits: 28,
   hackClubMicroSD: 30,
   logicAnalyzer: 34,
   biteSizeLinux: 40,
@@ -13,7 +11,6 @@ const doubloonValues = {
   domain1Year: 40,
   signedPhotoMalted: 42,
   raspberryPi: 48,
-  raspberryPi2: 48,
   digitalCalipers: 50,
   pcbManufacturing: 55,
   adafruitItsyBitsy: 55,
@@ -87,8 +84,8 @@ function addProject(title = "", doubloons = "", hours = "") {
   newSection.className = "input-section fade-in";
   newSection.innerHTML = `
     <input class="title" type="text" placeholder="Project Name" value="${title}">
-    <input class="doubloons" type="number" placeholder="Doubloons Earned" value="${doubloons}">
-    <input class="hours" type="number" placeholder="Hours Spent" value="${hours}">
+    <input class="doubloons" type="number" placeholder="Doubloons Earned" value="${doubloons}" min="0">
+    <input class="hours" type="number" placeholder="Hours Spent" value="${hours}" min="0">
     <span class="ratio"></span>
   `;
   addRemoveButton(newSection);
@@ -124,7 +121,7 @@ function rank() {
       if (isNaN(doubloons) || isNaN(hours) || hours <= 0) return null;
 
       const ratio = doubloons / hours;
-      section.querySelector(".ratio").textContent = `(${ratio.toFixed(2)} doubloons/hour)`;
+      section.querySelector(".ratio").innerHTML = `(${ratio.toFixed(2)} ${doubloonImg}/hour)`;
       return { section, ratio, doubloons };
     })
     .filter(Boolean);
@@ -147,11 +144,17 @@ function stats() {
   const doubloonsArray = inputSections
     .map((section) => parseFloat(section.querySelector(".doubloons").value))
     .filter((value) => !isNaN(value));
+  const hoursArray = inputSections
+    .map((section) => parseFloat(section.querySelector(".hours").value))
+    .filter((value) => !isNaN(value));
+  console.log(doubloonsArray, hoursArray);
 
-  if (doubloonsArray.length === 0) return;
+  if (doubloonsArray.length === 0 || hoursArray.length === 0) return;
 
-  const total = doubloonsArray.reduce((sum, value) => sum + value, 0);
+  total = doubloonsArray.reduce((sum, value) => sum + value, 0);
+  totalHours = hoursArray.reduce((sum, value) => sum + value, 0);
   mean = total / doubloonsArray.length;
+  rate = total / totalHours;
 
   const sorted = [...doubloonsArray].sort((a, b) => a - b);
   const mid = Math.floor(sorted.length / 2);
@@ -162,9 +165,18 @@ function stats() {
     doubloonsArray.length;
   stdev = Math.sqrt(variance);
 
-  document.getElementById("average-doubloon").textContent = `Average: ${mean.toFixed(2)}`;
-  document.getElementById("median-doubloon").textContent = `Median: ${median.toFixed(2)}`;
-  document.getElementById("stdev-doubloon").textContent = `Std Dev: ${stdev.toFixed(2)}`;
+  document.getElementById("average-rate").innerHTML = `Average Rate: ${rate.toFixed(
+    2
+  )} ${doubloonImg}/hour`;
+  document.getElementById("average-doubloon").innerHTML = `Average: ${mean.toFixed(
+    2
+  )} ${doubloonImg}/project`;
+  document.getElementById("median-doubloon").innerHTML = `Median: ${median.toFixed(
+    2
+  )} ${doubloonImg}/project`;
+  document.getElementById("stdev-doubloon").innerHTML = `Standard Deviation: ${stdev.toFixed(
+    2
+  )} ${doubloonImg}/project`;
   document.getElementById("stats").style = "visibility: visible;";
 }
 
@@ -178,20 +190,25 @@ function timeCalculate() {
   let doubloonsNeeded;
   if (doubloonDropdown.value === "---") {
     // Use the number input instead
-    doubloonsNeeded = parseFloat(doubloonsInput.value);
+    doubloonsNeeded = parseFloat(doubloonsInput.value) - total;
+  } else if (doubloonDropdown.value in doubloonValues) {
+    doubloonsNeeded = doubloonValues[doubloonDropdown.value] - total;
   } else {
-    // Use the dropdown instead
-    if (doubloonDropdown.value in doubloonValues) {
-      doubloonsNeeded = doubloonValues[doubloonDropdown.value];
-    } else {
-      timeCalcResult.textContent = "Invalid doubloon type";
-      return;
-    }
+    timeCalcResult.innerHTML = `Invalid ${doubloonImg}`;
+    return;
+  }
+
+  if (doubloonsNeeded <= 0) {
+    timeCalcResult.textContent = "You can buy it!";
+    return;
   }
 
   let minTime = doubloonsNeeded / maxRate;
   let maxTime = doubloonsNeeded / minRate;
-  timeCalcResult.textContent = `${minTime.toFixed(2)} hours - ${maxTime.toFixed(2)} hours`;
+  let averageTime = doubloonsNeeded / rate;
+  timeCalcResult.innerHTML = `It will take from ${minTime.toFixed(2)} hours - ${maxTime.toFixed(
+    2
+  )} hours<br>Average: ${averageTime.toFixed(2)} hours`;
 }
 
 function addEventListeners() {

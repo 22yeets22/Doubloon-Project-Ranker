@@ -19,6 +19,17 @@ h3 {
   margin-bottom: 0px;
 }
 
+p {
+  color: #666;
+  margin-bottom: 0px;
+}
+
+.doubloon {
+  vertical-align: middle; /* Adjusts alignment with text */
+  width: 16px;
+  height: 16px;
+}
+
 #stats {
   text-align: center;
 }
@@ -42,6 +53,7 @@ h3 {
   color: #007bff;
 }
 
+/* Buttons */
 #add-button,
 #rank-button,
 #clear-button,
@@ -73,22 +85,6 @@ h3 {
   background-color: #e3291b;
 }
 
-#result-container {
-  margin-top: 20px;
-  flex: 1;
-}
-#result-container h2 {
-  text-align: center;
-  color: #333;
-}
-#result-container div {
-  background-color: white;
-  padding: 10px;
-  margin: 5px 0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
 .remove-button {
   background-color: #e34d42;
   color: white;
@@ -101,6 +97,7 @@ h3 {
   background-color: #e3291b;
 }
 
+/* Custom divs */
 .sticky-div {
   position: fixed;
   bottom: 15px;
@@ -111,11 +108,23 @@ h3 {
   gap: 20px; /* Add spacing between buttons */
   justify-content: flex-end; /* Align buttons to the right */
 }
+
 .hover-div {
   background-color: rgba(255, 255, 255, 0.8);
   padding: 10px;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.split-div {
+  display: flex;
+  justify-content: space-between; /* Space between each child div */
+  align-items: center; /* Align items vertically in the center */
+  gap: 10px; /* Optional: Add space between items */
+}
+.split-div > div {
+  flex: 1; /* Each child takes up equal space */
+  text-align: center; /* Optional: Centers content in each child div */
 }
 
 /* Fade-in animation */
@@ -159,6 +168,7 @@ h3 {
   transition: all 0.3s ease-in-out;
 }
 
+/* All of the time calculation stuff */
 .dropdown-container {
   display: inline-block;
   position: relative;
@@ -181,16 +191,4 @@ h3 {
   border-radius: 5px;
   width: 100px;
   display: inline-block;
-}
-
-.split-div {
-  display: flex;
-  justify-content: space-between; /* Space between each child div */
-  align-items: center; /* Align items vertically in the center */
-  gap: 10px; /* Optional: Add space between items */
-}
-
-.split-div > div {
-  flex: 1; /* Each child takes up equal space */
-  text-align: center; /* Optional: Centers content in each child div */
 }

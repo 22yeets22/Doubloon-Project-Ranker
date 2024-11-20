@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/x-icon" href="/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="assets/doubloon.svg" />
     <title>Doubloon Project Ranker</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
     <h1>Doubloon Project Ranker</h1>
@@ -19,21 +19,22 @@
     <div id="stats" class="split-div" style="visibility: hidden">
       <div class="hover-div">
         <h2 id="stats-heading">Stats</h2>
+        <p id="average-rate"></p>
         <p id="average-doubloon"></p>
         <p id="median-doubloon"></p>
         <p id="stdev-doubloon"></p>
+        <p style="margin-bottom: 20px"></p>
       </div>
       <div class="hover-div">
+        <h2 id="time-calculation-heading">How Long Will it Take?</h2>
+        <br />
         <p>
-          How long for a
+          How long will it take for
           <span class="dropdown-container">
             <select id="doubloon-dropdown" class="dropdown">
               <option value="---" selected="selected">---</option>
               <option value="stickers">Pile of Stickers</option>
-              <option value="digitalOceanCredits">DigitalOcean credits</option>
-              <option value="openAIcredits">OpenAI credits</option>
-              <option value="hetznerCredits">Hetzner credits</option>
-              <option value="anthropicCredits">Anthropic Credits</option>
+              <option value="AIcredits">Any AI credits</option>
               <option value="hackClubMicroSD">Hack Club MicroSD card</option>
               <option value="logicAnalyzer">Logic Analyzer</option>
               <option value="biteSizeLinux">Bite Size Linux</option>
@@ -42,7 +43,6 @@
               <option value="domain1Year">Domain (1 year)</option>
               <option value="signedPhotoMalted">Signed photo of Malted</option>
               <option value="raspberryPi">Raspberry Pi</option>
-              <option value="raspberryPi2">Raspberry Pi</option>
               <option value="digitalCalipers">Digital Calipers</option>
               <option value="pcbManufacturing">PCB manufacturing credit!</option>
               <option value="adafruitItsyBitsy">Adafruit ItsyBitsy M4 Express</option>
@@ -77,8 +77,14 @@
             </select>
           </span>
           OR
-          <input type="number" id="doubloon-input" class="number-input" placeholder="Doubloons" />
-          doubloons?
+          <input
+            type="number"
+            id="doubloon-input"
+            class="number-input"
+            placeholder="Doubloons"
+            min="0"
+          />
+          <img src="assets/doubloon.svg" alt="Doubloon Icon" class="doubloon" />?
         </p>
         <button id="submit-button">Submit</button>
         <br />
@@ -91,7 +97,7 @@
       <button id="clear-button">(c) Clear</button>
     </div>
 
-    <script src="script.js"></script>
+    <script src="js/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </body>
 </html>
