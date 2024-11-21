@@ -12,8 +12,3 @@
 
 ## Demo
 [Doubloon Project Ranker](https://doubloon-project-ranker.vercel.app)
-
-## Todo
-1. Make CSS buttons classes
-2. Make the script prettier
-3. Toggle inputs

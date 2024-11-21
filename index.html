@@ -28,8 +28,8 @@
       <div class="hover-div">
         <h2 id="time-calculation-heading">How Long Will it Take?</h2>
         <br />
-        <p>
-          How long will it take for
+        <div>
+          <span>How long will it take for</span>
           <span class="dropdown-container">
             <select id="doubloon-dropdown" class="dropdown">
               <option value="---" selected="selected">---</option>
@@ -76,16 +76,18 @@
               <option value="ticketToDEFCON">ticket to DEF CON</option>
             </select>
           </span>
-          OR
-          <input
-            type="number"
-            id="doubloon-input"
-            class="number-input"
-            placeholder="Doubloons"
-            min="0"
-          />
-          <img src="assets/doubloon.svg" alt="Doubloon Icon" class="doubloon" />?
-        </p>
+          <span id="or-text">OR</span>
+          <div id="doubloon-input-div">
+            <input
+              type="number"
+              id="doubloon-input"
+              class="number-input"
+              placeholder="Doubloons"
+              min="0"
+            />
+            <img src="assets/doubloon.svg" alt="Doubloon Icon" class="doubloon" />?
+          </div>
+        </div>
         <button id="submit-button">Submit</button>
         <br />
         <p id="time-calculation-result"></p>
@@ -97,7 +99,11 @@
       <button id="clear-button">(c) Clear</button>
     </div>
 
-    <script src="js/script.js"></script>
+    <script type="module" src="js/project-manager.js"></script>
+    <script type="module" src="js/stats.js"></script>
+    <script type="module" src="js/local-storage.js"></script>
+    <script type="module" src="js/constants.js"></script>
+    <script type="module" src="js/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </body>
 </html>
