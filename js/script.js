@@ -54,21 +54,27 @@ function decodeQuery(queryString) {
 
 document.addEventListener("DOMContentLoaded", () => {
   const urlProjects = decodeQuery(location.search);
-  if (urlProjects.length > 0 && getFromLocalStorage().length > 0) {
-    Swal.fire({
-      title: "Do you want to override your saved projects?",
-      showCancelButton: true,
-      confirmButtonText: "Override!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        urlProjects.forEach(([name, hours, doubloons]) => {
-          addProject(name, doubloons, hours);
-        });
-      } else {
-        loadFromLocalStorage();
-      }
-      document.location = "/";
-    });
+  if (urlProjects.length > 0) {
+    if (getFromLocalStorage().length > 0) {
+      Swal.fire({
+        title: "Do you want to override your saved projects?",
+        showCancelButton: true,
+        confirmButtonText: "Override!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          urlProjects.forEach(([name, hours, doubloons]) => {
+            addProject(name, doubloons, hours);
+          });
+        } else {
+          loadFromLocalStorage();
+        }
+        document.location = "/";
+      });
+    } else {
+      urlProjects.forEach(([name, hours, doubloons]) => {
+        addProject(name, doubloons, hours);
+      });
+    }
   } else {
     loadFromLocalStorage();
   }
