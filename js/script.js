@@ -1,4 +1,4 @@
-import { saveToLocalStorage, loadFromLocalStorage } from "./local-storage.js";
+import { saveToLocalStorage, getFromLocalStorage, loadFromLocalStorage } from "./local-storage.js";
 import { addProject, clearAll, rank } from "./project-manager.js";
 import { clearStats, timeCalculate, stats } from "./stats.js";
 import { toggleDoubloonInput } from "./project-manager.js";
@@ -41,8 +41,37 @@ function addEventListeners() {
   document.getElementById("submit-button").addEventListener("click", timeCalculate);
 }
 
+function decodeQuery(queryString) {
+  const params = new URLSearchParams(queryString);
+  const data = params.get("data");
+  if (!data) return [];
+
+  return data.split(";").map((project) => {
+    const [name, floatVal, intVal] = project.split(",").map(decodeURIComponent);
+    return [name, parseFloat(floatVal), parseInt(intVal, 10)];
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
-  loadFromLocalStorage();
+  const urlProjects = decodeQuery(location.search);
+  if (urlProjects.length > 0 && getFromLocalStorage().length > 0) {
+    Swal.fire({
+      title: "Do you want to override your saved projects?",
+      showCancelButton: true,
+      confirmButtonText: "Override!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        urlProjects.forEach(([name, hours, doubloons]) => {
+          addProject(name, doubloons, hours);
+        });
+      } else {
+        loadFromLocalStorage();
+      }
+      document.location = "/";
+    });
+  } else {
+    loadFromLocalStorage();
+  }
   clearStats();
   addEventListeners();
 });
