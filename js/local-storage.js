@@ -11,8 +11,12 @@ function saveToLocalStorage() {
   localStorage.setItem("projects", JSON.stringify(data));
 }
 
+function getFromLocalStorage() {
+  return JSON.parse(localStorage.getItem("projects") || "[]");
+}
+
 function loadFromLocalStorage() {
-  const data = JSON.parse(localStorage.getItem("projects") || "[]");
+  const data = getFromLocalStorage();
   if (data.length === 0) {
     addProject();
   } else {
@@ -20,4 +24,4 @@ function loadFromLocalStorage() {
   }
 }
 
-export { saveToLocalStorage, loadFromLocalStorage };
+export { saveToLocalStorage, getFromLocalStorage, loadFromLocalStorage };
