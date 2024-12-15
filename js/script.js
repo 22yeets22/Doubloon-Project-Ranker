@@ -1,5 +1,5 @@
 import { saveToLocalStorage, getFromLocalStorage, loadFromLocalStorage } from "./local-storage.js";
-import { addProject, clearAll, rank } from "./project-manager.js";
+import { addProject, addProjects, clearAll, rank } from "./project-manager.js";
 import { clearStats, timeCalculate, stats } from "./stats.js";
 import { toggleDoubloonInput } from "./project-manager.js";
 
@@ -55,23 +55,21 @@ function decodeQuery(queryString) {
 document.addEventListener("DOMContentLoaded", () => {
   const urlProjects = decodeQuery(location.search);
   if (urlProjects.length > 0) {
-    if (getFromLocalStorage().length > 0) {
+    if (getFromLocalStorage().length === 0) {
+      addProjects(urlProjects);
+      document.location = "/";
+    } else {
       Swal.fire({
         title: "Do you want to override your saved projects?",
         showCancelButton: true,
         confirmButtonText: "Override!",
       }).then((result) => {
         if (result.isConfirmed) {
-          urlProjects.forEach(([name, hours, doubloons]) => {
-            addProject(name, doubloons, hours);
-          });
+          addProjects(urlProjects);
+          document.location = "/";
         } else {
           loadFromLocalStorage();
         }
-      });
-    } else {
-      urlProjects.forEach(([name, hours, doubloons]) => {
-        addProject(name, doubloons, hours);
       });
     }
     document.location = "/";
