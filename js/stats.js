@@ -69,7 +69,7 @@ function timeCalculate() {
   }
 
   if (doubloonsNeeded <= 0) {
-    timeCalcResult.textContent = "You can buy it!";
+    timeCalcResult.textContent = "You have enough to buy it!";
     return;
   }
 
@@ -78,7 +78,7 @@ function timeCalculate() {
   let averageTime = doubloonsNeeded / rate;
   timeCalcResult.innerHTML = `From ${minTime.toFixed(2)} hours - ${maxTime.toFixed(
     2
-  )} hours<br>Average: ${averageTime.toFixed(2)} hours`;
+  )} hours<br>On average: ${averageTime.toFixed(2)} hours`;
 }
 
 export { stats, clearStats, timeCalculate };
