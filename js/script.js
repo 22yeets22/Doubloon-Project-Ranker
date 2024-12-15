@@ -68,13 +68,13 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
           loadFromLocalStorage();
         }
-        document.location = "/";
       });
     } else {
       urlProjects.forEach(([name, hours, doubloons]) => {
         addProject(name, doubloons, hours);
       });
     }
+    document.location = "/";
   } else {
     loadFromLocalStorage();
   }
