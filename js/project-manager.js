@@ -18,6 +18,10 @@ function addProject(title = "", doubloons = "", hours = "") {
   newSection.offsetHeight;
 }
 
+function addProjects(projects) {
+  projects.forEach(([title, doubloons, hours]) => addProject(title, doubloons, hours));
+}
+
 function clearAll() {
   Swal.fire({
     title: "Are you sure?",
@@ -84,4 +88,4 @@ function toggleDoubloonInput() {
   orText.style.display = showDropdown && showInput ? "inline" : "none";
 }
 
-export { addProject, clearAll, addRemoveButton, rank, toggleDoubloonInput };
+export { addProject, addProjects, clearAll, addRemoveButton, rank, toggleDoubloonInput };
