@@ -62,12 +62,19 @@ function decodeQuery(queryString) {
   });
 }
 
+function clearQuery() {
+  const url = new URL(location.href);
+  url.searchParams.delete("data");
+  history.replaceState(null, "", url);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const urlProjects = decodeQuery(location.search);
   if (urlProjects.length > 0) {
     if (getFromLocalStorage().length === 0) {
       addProjects(urlProjects);
       saveToLocalStorage();
+      clearQuery();
     } else {
       Swal.fire({
         title: "Do you want to override your saved projects?",
@@ -77,6 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (result.isConfirmed) {
           addProjects(urlProjects);
           saveToLocalStorage();
+          clearQuery();
         } else {
           loadFromLocalStorage();
         }
