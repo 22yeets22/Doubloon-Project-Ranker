@@ -1,26 +1,50 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 
+:root {
+  --background-color-light-mode: #f0f0f0;
+  --background-color-dark-mode: #1e1e1e;
+  --background-color: var(--background-color-light-mode);
+
+  --text-color-light-mode: #333;
+  --text-color-dark-mode: #f0f0f0;
+  --text-color: var(--text-color-light-mode);
+
+  --secondary-text-color-light-mode: #666;
+  --secondary-text-color-dark-mode: #ccc;
+  --secondary-text-color: var(--secondary-text-color-light-mode);
+
+  --hover-div-color-light-mode: rgba(255, 255, 255, 0.7);
+  --hover-div-color-dark-mode: rgba(50, 50, 50, 0.7);
+  --hover-div-color: var(--hover-div-color-light-mode);
+
+  --input-color-light-mode: #f1f1f1;
+  --input-color-dark-mode: #222;
+  --input-color: var(--input-color-light-mode);
+}
+
 body {
   font-family: "Inter", Arial, sans-serif;
-  background-color: #f0f0f0;
+  background-color: var(--background-color);
+  color: var(--text-color);
   margin: 0;
   padding: 20px;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   padding-bottom: 100px;
+  transition: background-color 0.2s ease-in-out, color 0.3s ease-in-out;
 }
 
 h1,
 h2,
 h3 {
   text-align: center;
-  color: #333;
+  color: var(--text-color);
   margin-bottom: 0px;
 }
 
 p {
-  color: #666;
+  color: var(--secondary-text-color);
   margin-bottom: 0px;
 }
 
@@ -45,6 +69,8 @@ p {
   border: 1px solid #ccc;
   border-radius: 5px;
   flex: 1;
+  background-color: var(--input-color);
+  color: var(--text-color);
 }
 
 .ratio {
@@ -54,6 +80,50 @@ p {
 }
 
 /* Buttons */
+
+#toggle-button {
+  display: block;
+  width: 50px;
+  height: 30px;
+  padding: 10px;
+  border: none;
+  color: #eee;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  position: absolute;
+  right: 30px;
+  text-align: center;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#toggle-button i {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#toggle-button .fa-moon {
+  opacity: 1;
+}
+
+#toggle-button .fa-sun {
+  opacity: 0;
+}
+
+/* Add these classes that will be toggled by JavaScript */
+#toggle-button.dark-mode .fa-moon {
+  opacity: 0;
+  transform: translate(-50%, -50%) rotate(180deg);
+}
+
+#toggle-button.dark-mode .fa-sun {
+  opacity: 1;
+  transform: translate(-50%, -50%) rotate(0);
+}
+
 #add-button,
 #rank-button,
 #clear-button,
@@ -63,38 +133,42 @@ p {
   padding: 10px;
   margin: 10px 0;
   border: none;
-  color: white;
+  color: #eee;
   font-size: 16px;
   border-radius: 5px;
   cursor: pointer;
   transition: ease 0.3s;
 }
+#toggle-button,
 #add-button,
 #rank-button,
 #submit-button {
   background-color: #007bff;
 }
+#toggle-button:hover,
 #add-button:hover,
-#rank-button:hover #submit-button:hover {
+#rank-button:hover,
+#submit-button:hover {
   background-color: #0056b3;
 }
 #clear-button {
   background-color: #e34d42;
 }
 #clear-button:hover {
-  background-color: #e3291b;
+  background-color: #db2012;
 }
 
 .remove-button {
   background-color: #e34d42;
-  color: white;
+  color: #eee;
   border: none;
-  padding: 5px 10px;
+  padding: 10px 10px;
   border-radius: 5px;
+  font-size: 16px;
   cursor: pointer;
 }
 .remove-button:hover {
-  background-color: #e3291b;
+  background-color: #db2012;
 }
 
 /* Custom divs */
@@ -110,10 +184,16 @@ p {
 }
 
 .hover-div {
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: var(--hover-div-color);
   padding: 10px;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#title-div {
+  display: flex; /* Use flexbox for layout */
+  justify-content: center; /* Centers the content horizontally */
+  align-items: center; /* Aligns the items vertically */
 }
 
 .split-div {
@@ -127,50 +207,63 @@ p {
   text-align: center; /* Optional: Centers content in each child div */
 }
 
+/* Animations and layout */
+/* Updated animations and layout */
+#input-container {
+  display: grid;
+  grid-template-rows: auto;
+  gap: 10px;
+}
+
+.input-section {
+  display: flex; /* Changed to flex to keep items inline */
+  align-items: center; /* Center items vertically */
+  gap: 10px; /* Space between elements */
+  background: var(--background-color);
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
+}
+
 /* Fade-in animation */
 .fade-in {
-  animation: fadeIn 0.5s ease-in-out;
+  animation: fadeIn 0.3s ease-in-out;
 }
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(-10px); /* Slight upward motion */
+    transform: translateY(-20px);
+    max-height: 0;
   }
   to {
     opacity: 1;
     transform: translateY(0);
+    max-height: 100px;
   }
 }
 
 /* Fade-out animation */
 .fade-out {
-  animation: fadeOut 0.5s ease-in-out;
+  animation: fadeOut 0.3s ease-in-out forwards;
 }
 @keyframes fadeOut {
   from {
     opacity: 1;
     transform: translateY(0);
+    max-height: 100px;
+    margin-bottom: 10px;
   }
   to {
     opacity: 0;
-    transform: translateY(10px); /* Slight downward motion */
+    transform: translateY(-20px);
+    max-height: 0;
+    margin-bottom: 0;
   }
 }
 
-/* Smooth layout transitions */
-#input-container {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  transition: all 0.3s ease-in-out;
-}
-.input-section {
-  transition: all 0.3s ease-in-out;
-}
-
-/* All of the time calculation stuff */
+/* Keep your existing dropdown and input styles */
 .dropdown-container {
-  display: inline-block;
+  display: inline-flex; /* Changed to inline-flex */
+  align-items: center;
   position: relative;
 }
 
@@ -178,9 +271,10 @@ p {
   padding: 8px;
   font-size: 16px;
   border: 1px solid #ccc;
+  background-color: var(--input-color);
   border-radius: 5px;
   width: auto;
-  display: inline-block;
+  color: var(--text-color);
 }
 
 .number-input {
@@ -188,7 +282,14 @@ p {
   padding: 8px;
   font-size: 16px;
   border: 1px solid #ccc;
+  background-color: var(--input-color);
   border-radius: 5px;
   width: 100px;
-  display: inline-block;
+  color: var(--text-color);
+}
+
+/* Style for the remove button to ensure it stays inline */
+.remove-button {
+  margin-left: auto; /* This will push the button to the right */
+  white-space: nowrap;
 }

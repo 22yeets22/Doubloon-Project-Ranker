@@ -1,5 +1,5 @@
 import { saveToLocalStorage } from "./local-storage.js";
-import { doubloonImg } from "./constants.js";
+import { doubloonImg, doubloonShop, colorToggleableElements } from "./constants.js";
 
 function addProject(title = "", doubloons = "", hours = "") {
   const inputContainer = document.getElementById("input-container");
@@ -22,6 +22,12 @@ function addProjects(projects) {
   projects.forEach(([title, doubloons, hours]) => addProject(title, doubloons, hours));
 }
 
+function clearNoConfirm() {
+  document.getElementById("input-container").innerHTML = "";
+  localStorage.removeItem("projects");
+  addProject();
+}
+
 function clearAll() {
   Swal.fire({
     title: "Are you sure?",
@@ -29,25 +35,61 @@ function clearAll() {
     confirmButtonText: "Clear!",
   }).then((result) => {
     if (result.isConfirmed) {
-      document.getElementById("input-container").innerHTML = "";
-      localStorage.removeItem("projects");
-      addProject();
+      clearNoConfirm();
     }
   });
 }
 
 function addRemoveButton(section) {
   const removeButton = document.createElement("button");
-  removeButton.textContent = "Remove";
+  removeButton.innerHTML = `<i class="fa-solid fa-xmark"></i> Remove`;
   removeButton.className = "remove-button";
   removeButton.addEventListener("click", () => {
-    section.classList.add("fade-out"); // Add fade-out animation
-    setTimeout(() => {
-      section.remove(); // Remove after animation
-      saveToLocalStorage();
-    }, 500); // Match the animation duration
+    if (document.getElementById("input-container").children.length === 1) return;
+    section.classList.add("fade-out");
+
+    section.addEventListener(
+      "animationend",
+      () => {
+        section.remove();
+        saveToLocalStorage();
+      },
+      { once: true }
+    ); // Remove the event listener after execution
   });
   section.appendChild(removeButton);
+}
+
+function clearRankings() {
+  document
+    .getElementById("input-container")
+    .querySelectorAll(".ratio")
+    .forEach((ratio) => {
+      ratio.innerHTML = "";
+    });
+}
+
+function toggleBackgroundColor() {
+  colorToggleableElements.forEach((property) => {
+    const currentColor = getComputedStyle(document.documentElement)
+      .getPropertyValue(property)
+      .trim();
+    const lightColor = getComputedStyle(document.documentElement)
+      .getPropertyValue(property + "-light-mode")
+      .trim();
+    const darkColor = getComputedStyle(document.documentElement)
+      .getPropertyValue(property + "-dark-mode")
+      .trim();
+
+    document.documentElement.style.setProperty(
+      property,
+      currentColor === lightColor ? darkColor : lightColor
+    );
+  });
+
+  // Instead of changing innerHTML, toggle a class
+  const toggleBtn = document.getElementById("toggle-button");
+  toggleBtn.classList.toggle("dark-mode");
 }
 
 function rank() {
@@ -66,6 +108,8 @@ function rank() {
       return { section, ratio, doubloons };
     })
     .filter(Boolean);
+
+  if (data.length === 0) return;
 
   data.sort((a, b) => b.ratio - a.ratio);
 
@@ -88,4 +132,30 @@ function toggleDoubloonInput() {
   orText.style.display = showDropdown && showInput ? "inline" : "none";
 }
 
-export { addProject, addProjects, clearAll, addRemoveButton, rank, toggleDoubloonInput };
+function addShopValues() {
+  const dropdown = document.getElementById("doubloon-dropdown");
+
+  // Add the default option
+  dropdown.innerHTML = '<option value="---" selected="selected">---</option>';
+
+  // Add options from the dictionary
+  for (const item in doubloonShop) {
+    const option = document.createElement("option");
+    option.value = item;
+    option.textContent = item;
+    dropdown.appendChild(option);
+  }
+}
+
+export {
+  addProject,
+  addProjects,
+  clearAll,
+  clearNoConfirm,
+  addRemoveButton,
+  rank,
+  addShopValues,
+  toggleDoubloonInput,
+  toggleBackgroundColor,
+  clearRankings,
+};

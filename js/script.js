@@ -1,7 +1,14 @@
 import { saveToLocalStorage, getFromLocalStorage, loadFromLocalStorage } from "./local-storage.js";
-import { addProject, addProjects, clearAll, rank } from "./project-manager.js";
+import {
+  addProject,
+  addProjects,
+  clearAll,
+  clearRankings,
+  addShopValues,
+  rank,
+} from "./project-manager.js";
 import { clearStats, timeCalculate, stats } from "./stats.js";
-import { toggleDoubloonInput } from "./project-manager.js";
+import { toggleDoubloonInput, toggleBackgroundColor } from "./project-manager.js";
 
 function addEventListeners() {
   const clearProjectsAndSave = () => {
@@ -12,6 +19,7 @@ function addEventListeners() {
   const addProjectAndSave = () => {
     addProject();
     clearStats();
+    clearRankings();
     saveToLocalStorage();
   };
   const rankProjectsAndSave = () => {
@@ -36,6 +44,8 @@ function addEventListeners() {
     }
   });
 
+  document.getElementById("toggle-button").addEventListener("click", toggleBackgroundColor);
+
   document.getElementById("doubloon-dropdown").addEventListener("change", toggleDoubloonInput);
   document.getElementById("doubloon-input").addEventListener("change", toggleDoubloonInput);
   document.getElementById("submit-button").addEventListener("click", timeCalculate);
@@ -47,8 +57,8 @@ function decodeQuery(queryString) {
   if (!data) return [];
 
   return data.split(";").map((project) => {
-    const [name, floatVal, intVal] = project.split(",").map(decodeURIComponent);
-    return [name, parseFloat(floatVal), parseInt(intVal, 10)];
+    const [name, doubloons, hours] = project.split(",").map(decodeURIComponent);
+    return [name, parseFloat(doubloons), parseInt(hours, 10)];
   });
 }
 
@@ -57,6 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (urlProjects.length > 0) {
     if (getFromLocalStorage().length === 0) {
       addProjects(urlProjects);
+      saveToLocalStorage();
       document.location = "/";
     } else {
       Swal.fire({
@@ -66,16 +77,17 @@ document.addEventListener("DOMContentLoaded", () => {
       }).then((result) => {
         if (result.isConfirmed) {
           addProjects(urlProjects);
+          saveToLocalStorage();
           document.location = "/";
         } else {
           loadFromLocalStorage();
         }
       });
     }
-    document.location = "/";
   } else {
     loadFromLocalStorage();
   }
   clearStats();
+  addShopValues();
   addEventListeners();
 });

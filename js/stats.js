@@ -27,8 +27,9 @@ function stats() {
   const mid = Math.floor(sorted.length / 2);
   median = sorted.length % 2 === 0 ? (sorted[mid - 1] + sorted[mid]) / 2 : sorted[mid];
 
-  const variance = rates.reduce((sum, value) => sum + Math.pow(value - mean, 2), 0) / rates.length;
-  stdev = Math.sqrt(variance);
+  stdev = Math.sqrt(
+    rates.reduce((sum, value) => sum + Math.pow(value - rate, 2), 0) / rates.length
+  );
 
   document.getElementById("average-rate").innerHTML = `Average Rate: ${rate.toFixed(
     2
@@ -55,16 +56,20 @@ function timeCalculate() {
   const doubloonsInput = document.getElementById("doubloon-input");
   const timeCalcResult = document.getElementById("time-calculation-result");
 
-  const minRate = mean - stdev;
-  const maxRate = mean + stdev;
+  const minRate = Math.max(rate - stdev, 0.01);
+  const maxRate = rate + stdev;
   let doubloonsNeeded;
   if (doubloonDropdown.value === "---") {
     // Use the number input instead
     doubloonsNeeded = parseFloat(doubloonsInput.value) - totalDoubloons;
+    if (isNaN(doubloonsNeeded)) {
+      timeCalcResult.innerHTML = `Invalid ${doubloonImg}'s`;
+      return;
+    }
   } else if (doubloonDropdown.value in doubloonShop) {
     doubloonsNeeded = doubloonShop[doubloonDropdown.value] - totalDoubloons;
   } else {
-    timeCalcResult.innerHTML = `Invalid ${doubloonImg}`;
+    timeCalcResult.innerHTML = `Invalid ${doubloonImg}'s`;
     return;
   }
 
@@ -76,9 +81,9 @@ function timeCalculate() {
   let minTime = doubloonsNeeded / maxRate;
   let maxTime = doubloonsNeeded / minRate;
   let averageTime = doubloonsNeeded / rate;
-  timeCalcResult.innerHTML = `From ${minTime.toFixed(2)} hours - ${maxTime.toFixed(
+  timeCalcResult.innerHTML = `It will take ${minTime.toFixed(2)} hours to ${maxTime.toFixed(
     2
-  )} hours<br>On average: ${averageTime.toFixed(2)} hours`;
+  )} hours<br>On average, it will take ${averageTime.toFixed(2)} hours`;
 }
 
 export { stats, clearStats, timeCalculate };
