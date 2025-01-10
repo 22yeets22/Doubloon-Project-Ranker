@@ -68,7 +68,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (getFromLocalStorage().length === 0) {
       addProjects(urlProjects);
       saveToLocalStorage();
-      document.location = "/";
     } else {
       Swal.fire({
         title: "Do you want to override your saved projects?",
@@ -78,7 +77,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (result.isConfirmed) {
           addProjects(urlProjects);
           saveToLocalStorage();
-          document.location = "/";
         } else {
           loadFromLocalStorage();
         }
